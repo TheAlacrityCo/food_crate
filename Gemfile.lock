@@ -56,14 +56,27 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
+    capybara (3.33.0)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.5)
+      xpath (~> 3.2)
+    coderay (1.1.3)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.3)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     crass (1.0.6)
     devise (4.7.2)
       bcrypt (~> 3.0)
@@ -72,6 +85,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    docile (1.3.2)
     erubi (1.9.0)
     factory_bot (6.0.2)
       activesupport (>= 5.0.0)
@@ -87,10 +101,13 @@ GEM
       thor (>= 0.14.0, < 2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashdiff (1.0.1)
     i18n (1.8.4)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -113,6 +130,10 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (1.2.3)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
@@ -153,6 +174,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.2.1)
+    regexp_parser (1.7.1)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -173,6 +195,7 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
+    safe_yaml (1.0.5)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -183,11 +206,17 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    shoulda-matchers (4.3.0)
+      activesupport (>= 4.2.0)
     sidekiq (6.0.7)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       rack-protection (>= 2.0.0)
       redis (>= 4.1.0)
+    simplecov (0.18.5)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+    simplecov-html (0.12.2)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -203,6 +232,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    vcr (6.0.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.4)
@@ -210,6 +240,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.8.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webpacker (4.2.2)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -217,6 +251,8 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     zeitwerk (2.4.0)
 
 PLATFORMS
@@ -225,23 +261,30 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
+  capybara
   devise
   factory_bot_rails
   faker
   faraday
   figaro
   jbuilder (~> 2.7)
+  launchy
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
+  pry
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
   redis (~> 4.0)
   rspec-rails
   sass-rails (>= 6)
+  shoulda-matchers
   sidekiq
+  simplecov
   turbolinks (~> 5)
   tzinfo-data
+  vcr
   web-console (>= 3.3.0)
+  webmock
   webpacker (~> 4.0)
 
 RUBY VERSION
