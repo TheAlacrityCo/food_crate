@@ -18,7 +18,7 @@ jobs:
       # learn more: https://circleci.com/docs/2.0/caching/
       - node/install-packages: 
           pkg-manager: yarn
-          cache-key: "yarn.lock"
+          # cache-key: "yarn.lock"
           
   test:  # our next job, called "test"
     # we run "parallel job containers" to enable speeding up our tests;
