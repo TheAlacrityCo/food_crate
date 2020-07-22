@@ -46,7 +46,7 @@ jobs:
       - ruby/install-deps 
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: "yarn.lock"
+          # cache-key: "yarn.lock"
       # Here we make sure that the secondary container boots 
       # up before we run operations on the database.
       - run:
