@@ -32,7 +32,6 @@ jobs:
           POSTGRES_USER: circleci-homies
           POSTGRES_PASSWORD: password
           POSTGRES_DB: farm_link_test
-          # POSTGRES_PASSWORD: ""
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
