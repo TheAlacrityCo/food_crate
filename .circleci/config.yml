@@ -9,7 +9,7 @@ orbs:
 jobs:
   build: # our first job, named "build"
     docker:
-      - image: cimg/ruby:2.6-node # use a tailored CircleCI docker image.
+      - image: cimg/ruby:2.7.1-node # use a tailored CircleCI docker image.
     steps:
       - checkout # pull down our git code.
       - ruby/install-deps # use the ruby orb to install dependencies
@@ -26,7 +26,7 @@ jobs:
     parallelism: 3 
     # here we set TWO docker images.
     docker:
-      - image: cimg/ruby:2.6-node # this is our primary docker image, where step commands run.
+      - image: cimg/ruby:2.7.1-node # this is our primary docker image, where step commands run.
       - image: circleci/postgres:12.3
         environment: # add POSTGRES environment variables.
           POSTGRES_USER: circleci-homies
