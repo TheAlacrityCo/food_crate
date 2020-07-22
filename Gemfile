@@ -19,7 +19,8 @@ gem 'redis', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 4.0.1'
+  gem 'rspec', '>= 3.9.0'
   gem 'capybara'
   gem 'launchy'
   gem 'pry'
