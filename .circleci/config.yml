@@ -18,7 +18,7 @@ jobs:
       # learn more: https://circleci.com/docs/2.0/caching/
       - node/install-packages: 
           pkg-manager: yarn
-          # cache-key: "yarn.lock"
+          cache-key: "yarn.lock"
           
   test:  # our next job, called "test"
     # we run "parallel job containers" to enable speeding up our tests;
@@ -32,13 +32,11 @@ jobs:
           POSTGRES_USER: circleci-homies
           POSTGRES_PASSWORD: password
           POSTGRES_DB: farm_link_test
-          # POSTGRES_PASSWORD: ""
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
-      # POSTGRES_PASSWORD: password
       PGUSER: circleci-homies
       PGPASSWORD: password
       RAILS_ENV: test
@@ -48,7 +46,7 @@ jobs:
       - ruby/install-deps 
       - node/install-packages:
           pkg-manager: yarn
-          # cache-key: "yarn.lock"
+          cache-key: "yarn.lock"
       # Here we make sure that the secondary container boots 
       # up before we run operations on the database.
       - run:
