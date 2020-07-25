@@ -17,10 +17,11 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
+  pool: 5
   username: postgres
   password: password
-  pool: 5
+  host: db
+  port: 5432
 
 
   # For details on connection pooling, see Rails configuration guide
@@ -64,7 +65,6 @@ development:
 test:
   <<: *default
   database: farm_link_test
-  host: 127.0.0.1
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -88,5 +88,5 @@ test:
 production:
   <<: *default
   database: farm_link_production
-  username: farm_link
-  password: <%= ENV['FARM_LINK_DATABASE_PASSWORD'] %>
+  # username: farm_link
+  # password: <%= ENV['FARM_LINK_DATABASE_PASSWORD'] %>
