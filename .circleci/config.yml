@@ -25,13 +25,11 @@ jobs:
     # here we set TWO docker images.
     docker:
       - image: cimg/ruby:2.7.1-node # this is our primary docker image, where step commands run.
-        environment:
-          host: 127.0.0.1
       - image: circleci/postgres:12.3
         environment: # add POSTGRES environment variables.
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: farm_link_test
+          POSTGRES_DB: farm_link_staging
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
@@ -39,7 +37,7 @@ jobs:
       PGHOST: 127.0.0.1
       PGUSER: postgres
       PGPASSWORD: password
-      RAILS_ENV: test
+      RAILS_ENV: staging
     # A series of steps to run, some are similar to those in "build".
     steps:
       - checkout 
