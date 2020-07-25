@@ -1,7 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
   config.cache_classes = true
+
+  # Generate temporary secret_key_base for CircleCI
+  config.secret_token = SecureRandom.hex(64)
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
