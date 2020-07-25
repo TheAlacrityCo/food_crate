@@ -27,7 +27,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/config/credentials/
+/config/credentials/staging.key
+
 
 /public/packs
 /public/packs-test
@@ -39,7 +40,6 @@ yarn-debug.log*
 # Ignore simplecov reports
 /coverage.data
 /coverage/
-/config/credentials/staging.key
 
 # Ignore application configuration
 /config/application.yml
