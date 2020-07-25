@@ -38,6 +38,7 @@ jobs:
       PGUSER: postgres
       PGPASSWORD: password
       RAILS_ENV: staging
+      secret_key_base: superawesome123
     # A series of steps to run, some are similar to those in "build".
     steps:
       - checkout 
