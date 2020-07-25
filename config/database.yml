@@ -36,7 +36,6 @@ staging:
   <<: *default
   database: farm_link_staging
   host: 127.0.0.1
-  secret_key_base: superawesome123
 
 test:
   <<: *default
