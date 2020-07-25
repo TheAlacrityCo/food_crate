@@ -40,3 +40,6 @@ yarn-debug.log*
 /coverage.data
 /coverage/
 /config/credentials/staging.key
+
+# Ignore application configuration
+/config/application.yml
