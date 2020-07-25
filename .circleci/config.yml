@@ -65,6 +65,8 @@ workflows:
       - test:         # Then run test,
           pre-steps: # steps to run before steps defined in the job test
             - run:
+                command: 'touch config/secrets.yml'
+            - run:
                 command: 'echo -e "staging:\n  secret_key_base: abcd1234" > config/secrets.yml'
           requires:   # Test requires that build passes for it to run.
             - build
