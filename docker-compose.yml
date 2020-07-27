@@ -14,5 +14,6 @@ services:
       - .:/farm_link
     ports:
       - "3000:3000"
+    image: iev0lv3/farm_link
     depends_on:
       - db
