@@ -8,4 +8,6 @@ class FoodBank < ApplicationRecord
   validates :capacity, numericality: { only_integer: true }, presence: true
 
   enum need_level: %i[low medium high]
+
+  has_many :users, as: :employable
 end

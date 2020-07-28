@@ -43,6 +43,7 @@ test:
 
 production:
   <<: *default
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASS"] %>
   database: farm_link_production
-  # username: farm_link
-  # password: <%= ENV['FARM_LINK_DATABASE_PASSWORD'] %>
+  host:  "/cloudsql/farm-link-284523:us-central1:farm-link-db"

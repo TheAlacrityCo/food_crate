@@ -10,4 +10,8 @@ RSpec.describe FoodBank, type: :model do
     it { should validate_presence_of :need_level }
     it { should validate_presence_of :capacity }
   end
+
+  describe 'relationships' do
+    it { should have_many :users }
+  end
 end

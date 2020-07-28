@@ -9,4 +9,8 @@ RSpec.describe LogisticsCompany, type: :model do
     it { should validate_presence_of :phone }
     it { should validate_presence_of :max_load }
   end
+
+  describe 'relationships' do
+    it { should have_many :users }
+  end
 end

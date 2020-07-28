@@ -12,5 +12,6 @@ RSpec.describe Farm, type: :model do
 
   describe 'relationships' do
     it { should have_many :foods }
+    it { should have_many :users }
   end
 end
