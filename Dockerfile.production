@@ -1,0 +1,52 @@
+# syntax = docker/dockerfile:1.0-experimental
+
+FROM ruby:2.7.1
+
+# Install necessary packages: NodeJS and PostgreSQL
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+
+# Install and update most recent version of Yarn
+RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -) && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt-get update && apt-get install -y yarn
+
+# Create a working directory for the container
+RUN mkdir /farm_link
+WORKDIR /farm_link
+
+# Install Yarn Packages
+# COPY package.json /farm_link/package.json
+# COPY yarn.lock /farm_link/yarn.lock
+# RUN yarn
+
+# Install Ruby Packages
+COPY Gemfile /farm_link/Gemfile
+COPY Gemfile.lock /farm_link/Gemfile.lock
+RUN bundle install
+
+# Copy application root directory into farm_link
+COPY . /farm_link
+
+# Set RAILS_ENV
+ENV RAILS_ENV=production
+
+# Setup Rails for Production
+RUN --mount=type=secret,id=RAILS_MASTER_KEY,dst=/farm_link/config/credentials/production.key \
+# RAILS_ENV=production bundle exec rake webpacker:install \
+RAILS_ENV=production bundle exec rake assets:precompile
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+
+# Expose external port
+EXPOSE 3000
+
+# Set port ENV variable
+ENV PORT 3000
+
+# Run Entrypoint script
+COPY entrypoint_production.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint_production.sh
+ENTRYPOINT ["entrypoint_production.sh"]
+
+# Start the main process.
+CMD ["entrypoint_production.sh"]
