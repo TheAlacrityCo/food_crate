@@ -1,17 +1,58 @@
 FROM ruby:2.7.1
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
-RUN mkdir /farm_link
-WORKDIR /farm_link
-COPY Gemfile /farm_link/Gemfile
-COPY Gemfile.lock /farm_link/Gemfile.lock
+
+# Install recent versions of nodejs (10.x) and yarn pkg manager
+# Needed to properly pre-compile Rails assets
+RUN (curl -sL https://deb.nodesource.com/setup_12.x | bash -) && \
+  apt-get update && apt-get install -y nodejs 
+
+RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -) && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt-get update && apt-get install -y yarn
+
+# Install PostgreSQL client (needed for the connection to Google CloudSQL instance)
+RUN apt-get update && apt-get install -y postgresql-client
+
+# Install production dependencies (Gems installation in
+# local vendor directory)
+WORKDIR /usr/src/app
+COPY Gemfile Gemfile.lock ./
+ENV BUNDLE_FROZEN=true
 RUN bundle install
-COPY . /farm_link
 
-# Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
+# Copy application code to the container image.
+# Note: files listed in .gitignore are not copied
+# (e.g.secret files)
+COPY . .
 
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# Set Rails environment to production
+ENV RAILS_ENV=production
+
+# Use MASTER_KEY to set RAILS_MASTER_KEY
+ARG MASTER_KEY
+ENV RAILS_MASTER_KEY=${MASTER_KEY}
+
+# Pre-compile Rails assets (master key needed)
+RUN RAILS_ENV=production bundle exec rake assets:precompile
+
+# Set Google App Credentials environment variable with Service Account
+ENV GOOGLE_APPLICATION_CREDENTIALS=./config/farm_link.key
+
+# Setup Rails DB password passed on docker command line (see Cloud Build file)
+ARG DB_PASS
+ENV DATABASE_PASSWORD=${DB_PASS}
+
+# For now we don't have a Nginx/Apache frontend so tell 
+# the Puma HTTP server to serve static content
+# (e.g. CSS and Javascript files)
+ENV RAILS_SERVE_STATIC_FILES=true
+
+# Redirect Rails log to STDOUT for Cloud Run to capture
+ENV RAILS_LOG_TO_STDOUT=true
+
+# Expose port
+ENV PORT 8080
+EXPOSE 8080
+
+# Designate the initial sript to run on container startup
+RUN chmod +x /usr/src/app/entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
