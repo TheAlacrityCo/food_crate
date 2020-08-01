@@ -14,14 +14,10 @@ RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -) && \
 RUN mkdir /farm_link
 WORKDIR /farm_link
 
-# Install Yarn Packages
-# COPY package.json /farm_link/package.json
-# COPY yarn.lock /farm_link/yarn.lock
-# RUN yarn
-
 # Install Ruby Packages
 COPY Gemfile /farm_link/Gemfile
 COPY Gemfile.lock /farm_link/Gemfile.lock
+ENV BUNDLE_FROZEN=true
 RUN bundle install
 
 # Copy application root directory into farm_link
@@ -32,21 +28,16 @@ ENV RAILS_ENV=production
 
 # Setup Rails for Production
 RUN --mount=type=secret,id=RAILS_MASTER_KEY,dst=/farm_link/config/credentials/production.key \
-# RAILS_ENV=production bundle exec rake webpacker:install \
 RAILS_ENV=production bundle exec rake assets:precompile
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
 
-# Expose external port
-EXPOSE 3000
+ENV PORT 8080
 
-# Set port ENV variable
-ENV PORT 3000
+# Expose external port
+EXPOSE $PORT
 
 # Run Entrypoint script
 COPY entrypoint_production.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint_production.sh
-ENTRYPOINT ["entrypoint_production.sh"]
-
-# Start the main process.
-CMD ["entrypoint_production.sh"]
+RUN chmod +x /farm_link/entrypoint_production.sh
+ENTRYPOINT ["/farm_link/entrypoint_production.sh"]
