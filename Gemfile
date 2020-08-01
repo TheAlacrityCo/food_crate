@@ -7,6 +7,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'faraday'
 gem 'figaro'
+gem 'google-cloud-secret_manager'
 gem 'google-cloud-storage'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'

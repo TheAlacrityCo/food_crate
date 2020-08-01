@@ -38,9 +38,3 @@ yarn-debug.log*
 
 # Ignore application configuration
 /config/application.yml
-
-# gCloud Cloud Build
-cloudbuild.yaml
-
-# Scripts
-/scripts/

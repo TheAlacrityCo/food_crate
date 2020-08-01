@@ -1,4 +1,4 @@
-# Ignore bundler config.
+Ignore bundler config.
 /.bundle
 
 # Ignore all logfiles and tempfiles.
@@ -24,6 +24,7 @@
 /config/credentials/staging.key
 /config/credentials/production.key
 /config/farm_link.key
+rails_production_key.txt
 
 /public/packs
 /public/packs-test
@@ -39,8 +40,8 @@ yarn-debug.log*
 # Ignore application configuration
 /config/application.yml
 
-# gCloud Cloud Build
-cloudbuild.yaml
-
-# Scripts
-/scripts/
+.git
+dist
+node_modules
+vendor
+*.jar
