@@ -23,9 +23,7 @@
 /config/master.key
 /config/credentials/staging.key
 /config/credentials/production.key
-
-# Ignore all key files
-*.key
+/config/farm_link.key
 
 /public/packs
 /public/packs-test
