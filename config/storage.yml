@@ -6,29 +6,24 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-# amazon:
-#   service: S3
-#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
-#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
-#   region: us-east-1
-#   bucket: your_own_bucket
-
-# Remember not to checkin your GCS keyfile to a repository
 google:
   service: GCS
   project: farm-link-284523
-  credentials: <%= Rails.application.credentials.gcskey.as_json %>
+  credentials: <%= Rails.root.join("config/farm_link.key.as_json") %>
   bucket: farm-link-bucket
 
-# Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
-# microsoft:
-#   service: AzureStorage
-#   storage_account_name: your_account_name
-#   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
-#   container: your_container_name
-
-# mirror:
-#   service: Mirror
-#   primary: local
-#   mirrors: [ amazon, google, microsoft ]
+# google:
+#   service: GCS
+#   credentials:
+#     type: "service_account"
+#     project_id: "farm-link-284523"
+#     private_key_id: <%= Rails.application.credentials.dig(:gcskey, :private_key_id) %>
+#     private_key: <%= Rails.application.credentials.dig(:gcskey, :private_key).dump %>
+#     client_email: "farm-link@farm-link-284523.iam.gserviceaccount.com"
+#     client_id: "116276311721033744602"
+#     auth_uri: "https://accounts.google.com/o/oauth2/auth"
+#     token_uri: "https://accounts.google.com/o/oauth2/token"
+#     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs"
+#     client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/farm-link%40farm-link-284523.iam.gserviceaccount.com"
+#   project: "farm-link-284523"
+#   bucket: "farm-link-bucket"
