@@ -22,7 +22,7 @@ test:
 
 production:
   <<: *default
-  username: <%= ENV["DB_USER"] %>
-  password: <%= ENV["DB_PASS"] %>
+  username: postgres
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   database: farm_link_production
   host:  "/cloudsql/farm-link-284523:us-central1:farm-link-db"
