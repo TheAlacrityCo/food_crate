@@ -45,6 +45,8 @@ steps:
   - '--platform'
   - 'managed'
 
+timeout: 900s
+
 secrets:
   - kmsKeyName: projects/farm-link-284523/locations/us-central1/keyRings/farm-link-secrets/cryptoKeys/db_pass
     secretEnv:
