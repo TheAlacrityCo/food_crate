@@ -45,9 +45,6 @@ steps:
   - '--platform'
   - 'managed'
 
-images:
-  - 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA'
-
 secrets:
   - kmsKeyName: projects/farm-link-284523/locations/us-central1/keyRings/farm-link-secrets/cryptoKeys/db_pass
     secretEnv:
