@@ -8,12 +8,13 @@ services:
     environment:
       POSTGRES_PASSWORD: password
   web:
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    build:
+      context: .
+      dockerfile: Dockerfile.development
     volumes:
       - .:/farm_link
     ports:
       - "3000:3000"
-    image: iev0lv3/farm_link
+    image: farm_link
     depends_on:
       - db
