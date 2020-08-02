@@ -8,12 +8,12 @@ RUN mkdir /farm_link
 WORKDIR /farm_link
 
 # Copy Gemfile and bundle install
-COPY Gemfile /farm_link/Gemfile
-COPY Gemfile.lock /farm_link/Gemfile.lock
+COPY Gemfile ./Gemfile
+COPY Gemfile.lock ./Gemfile.lock
 RUN bundle install
 
 # Copy code into container
-COPY . /farm_link
+COPY . .
 
 # Expose external port
 EXPOSE 3000
@@ -21,7 +21,4 @@ EXPOSE 3000
 # Add a script to be executed every time the container starts.
 COPY entrypoint_development.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint_development.sh
-ENTRYPOINT ["entrypoint_development.sh"]
-
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT ["/usr/bin/entrypoint_development.sh"]
