@@ -2,27 +2,31 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  password: password
   host: db
   port: 5432
+  
+production:
+  <<: *default
+  database: farm_link_production
+  username: postgres
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host:  "/cloudsql/farm-link-284523:us-central1:farm-link-db"
+  
+staging:
+  <<: *default
+  database: farm_link_staging
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: 127.0.0.1
 
 development:
   <<: *default
   database: farm_link_development
-
-staging:
-  <<: *default
-  database: farm_link_staging
-  host: 127.0.0.1
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
 
 test:
   <<: *default
   database: farm_link_test
-
-production:
-  <<: *default
-  username: postgres
+  username: <%= ENV["DB_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
-  database: farm_link_production
-  host:  "/cloudsql/farm-link-284523:us-central1:farm-link-db"

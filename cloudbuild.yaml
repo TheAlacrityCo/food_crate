@@ -1,0 +1,41 @@
+steps:
+
+# Decrypt Rails production key file
+- name: gcr.io/cloud-builders/gcloud
+  args: ["kms", "decrypt", "--ciphertext-file=./config/credentials/production.key.enc", 
+         "--plaintext-file=./config/credentials/production.key",
+         "--location=us-central1", "--keyring=farm-link-secrets", 
+         "--key=rails_key"]
+
+# Decrypt Rails master key file
+- name: gcr.io/cloud-builders/gcloud
+  args: ["kms", "decrypt", "--ciphertext-file=./config/master.key.enc", 
+         "--plaintext-file=./config/master.key",
+         "--location=us-central1", "--keyring=farm-link-secrets", 
+         "--key=rails_key_master"]
+
+# Decrypt Farm Link service account credentials
+- name: gcr.io/cloud-builders/gcloud
+  args: ["kms", "decrypt", "--ciphertext-file=./config/farm_link.key.enc", 
+         "--plaintext-file=./config/farm_link.key",
+         "--location=us-central1", "--keyring=farm-link-secrets", 
+         "--key=farm_link_key"]
+
+# Build image with tag 'latest' and pass decrypted Rails DB password as argument
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag', 'gcr.io/farm-link-284523/farm_link:latest', 
+         '--build-arg', 'DB_PASS', '--build-arg', 'MASTER_KEY', '.']
+  secretEnv: ['DB_PASS', 'MASTER_KEY']
+
+# Push new image to Google Container Registry       
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/farm-link-284523/farm_link:latest']
+
+secrets:
+  - kmsKeyName: projects/farm-link-284523/locations/us-central1/keyRings/farm-link-secrets/cryptoKeys/db_pass
+    secretEnv:
+      DB_PASS: "CiQApGVp+nj+bh7h+JW+vJ4EYzvKUWb4Z1vRcYjSHaa/gRR5bMASNgCS4xNfiMc0ONzAwKVnQvZsltm7DVNDeKHhwVeE1BifR3R6HhWlUllmwBDaP6Z3avv66elGUg=="
+
+  - kmsKeyName: projects/farm-link-284523/locations/us-central1/keyRings/farm-link-secrets/cryptoKeys/master_key_string
+    secretEnv:
+      MASTER_KEY: "CiQAupn5AHZWTHqkpZlPoYsICZhaXWc2gwsH2FHe/QbUEqQiqj0SSQC6p+jZEsHD7LpUe9K6ww2zgQt1BnPq8XyhZQ/GryKxIMie5YzLCK8Mt66nRPCWIEzqvo37jW/QPumeiDm5/0b7JBGYrf6v1iM="
