@@ -38,19 +38,8 @@ steps:
   args: ['run', 'deploy', 'farm-link-staging',
   '--image', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA',
   '--region', 'us-central1', '--platform', 'managed']
-  # - 'run'
-  # - 'deploy'
-  # - 'farm-link-staging-$COMMIT_SHA'
-  # - '--image'
-  # - 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA'
-  # - '--region'
-  # - 'us-central1'
-  # - '--platform'
-  # - 'managed'
 
 timeout: 900s
-
-# images: ['gcr.io/farm-link-284523/farm_link:$COMMIT_SHA']
 
 secrets:
   - kmsKeyName: projects/farm-link-284523/locations/us-central1/keyRings/farm-link-secrets/cryptoKeys/db_pass
