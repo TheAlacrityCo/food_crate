@@ -6,7 +6,7 @@ RUN apk add --update --no-cache \
   build-base \
   postgresql-dev \
   git \
-  nodejs-current \
+  nodejs \
   yarn \
   tzdata
 
@@ -26,11 +26,12 @@ COPY package.json yarn.lock /app/
 RUN yarn install --production
 
 # Add the Rails app
-ADD . /app
+COPY . .
 
 # Precompile assets
 ARG MASTER_KEY
-RUN RAILS_ENV=production RAILS_MASTER_KEY=${MASTER_KEY} bundle exec rake assets:precompile
+RUN RAILS_ENV=production RAILS_MASTER_KEY=${MASTER_KEY} bundle exec rake assets:precompile \
+  && bundle exec rake webpacker:compile
 
 # Remove folders not needed in resulting image
 RUN rm -rf node_modules tmp/cache app/assets vendor/assets lib/assets spec
@@ -39,18 +40,23 @@ RUN rm -rf node_modules tmp/cache app/assets vendor/assets lib/assets spec
 # Stage Runtime
 FROM ruby:2.7.1-alpine
 
+ENV RAILS_ENV=production
+ENV BUNDLE_APP_CONFIG=/app/.bundle
+
+# Set working directory
+WORKDIR /app
+
 # Add Alpine packages
 RUN apk add --update --no-cache \
   postgresql-client \
   bash \
+  nodejs \
   tzdata
 
 # Copy app with gems from former build stage
-COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=Builder /app /app
 
 # Set Rails environment variables
-ENV RAILS_ENV=production
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_SERVE_STATIC_FILES true
 ENV PORT 8080
@@ -62,9 +68,6 @@ ENV DATABASE_PASSWORD=${DB_PASS}
 # Set RAILS_MASTER_KEY to config/master.key from ARG
 ARG MASTER_KEY
 ENV RAILS_MASTER_KEY=${MASTER_KEY}
-
-# Set working directory
-WORKDIR /app
 
 # Expose Puma port
 EXPOSE 8080
