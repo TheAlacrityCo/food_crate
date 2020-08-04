@@ -6,7 +6,7 @@ RUN apk add --update --no-cache \
   build-base \
   postgresql-dev \
   git \
-  nodejs \
+  nodejs-current \
   yarn \
   ca-certificates \
   yaml-dev \
@@ -30,7 +30,7 @@ COPY package.json yarn.lock /app/
 RUN yarn install --production
 
 # Add the Rails app
-COPY . ./app
+COPY . ./
 
 # Precompile assets
 ARG MASTER_KEY
@@ -48,7 +48,7 @@ FROM ruby:2.7.1-alpine
 RUN apk add --update --no-cache \
   bash \
   postgresql-client \
-  nodejs \
+  nodejs-current \
   ca-certificates \
   yaml-dev \
   zlib-dev \
