@@ -17,7 +17,7 @@ RUN apk add --update --no-cache \
 WORKDIR /app
 
 # Install gems
-COPY Gemfile* /app/
+COPY Gemfile* ./
 RUN bundle config set --global frozen 1 \
   && bundle install --without test:development:staging -j4 --retry 3 \
   # Remove unneeded files (cached *.gem, *.o, *.c)
