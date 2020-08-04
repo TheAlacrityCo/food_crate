@@ -13,7 +13,7 @@ RUN apk add --update --no-cache \
 WORKDIR /app
 
 # Install gems
-COPY Gemfile* ./
+COPY Gemfile* /app/
 RUN bundle config set --global frozen 1 \
   && bundle install --without test:development:staging -j4 --retry 3 \
   # Remove unneeded files (cached *.gem, *.o, *.c)
@@ -22,11 +22,11 @@ RUN bundle config set --global frozen 1 \
   && find /usr/local/bundle/gems/ -name "*.o" -delete
 
 # Install yarn packages
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock /app/
 RUN yarn install --production
 
 # Add the Rails app
-COPY . ./
+COPY . /app
 
 # Precompile assets
 ARG MASTER_KEY
@@ -52,7 +52,7 @@ COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=Builder /app /app
 
 # Possible solution for Sprockets
-RUN mkdir -p app/assets/config && echo '{}' > app/assets/config/manifest.js
+# RUN mkdir -p app/assets/config && echo '{}' > app/assets/config/manifest.js
 
 # Set Rails environment variables
 ENV RAILS_ENV=production
