@@ -35,16 +35,18 @@ steps:
  # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args:
-  - 'run'
-  - 'deploy'
-  - 'farm-link-staging-$COMMIT_SHA'
-  - '--image'
-  - 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA'
-  - '--region'
-  - 'us-central1'
-  - '--platform'
-  - 'managed'
+  args: ['run', 'deploy', 'farm-link-staging-$COMMIT_SHA',
+  '--image', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA',
+  '--region', 'us-central1', '--platform', 'managed']
+  # - 'run'
+  # - 'deploy'
+  # - 'farm-link-staging-$COMMIT_SHA'
+  # - '--image'
+  # - 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA'
+  # - '--region'
+  # - 'us-central1'
+  # - '--platform'
+  # - 'managed'
 
 timeout: 900s
 
