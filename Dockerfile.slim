@@ -66,7 +66,9 @@ EXPOSE 8080
 
 # Save timestamp of image building
 RUN date -u > BUILD_TIME \
-  && echo pwd
+  && echo pwd \
+  && echo ls
 
 # Start up
+RUN chmod +x /usr/src/app/entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
