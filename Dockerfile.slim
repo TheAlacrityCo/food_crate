@@ -65,7 +65,8 @@ WORKDIR /app
 EXPOSE 8080
 
 # Save timestamp of image building
-RUN date -u > BUILD_TIME
+RUN date -u > BUILD_TIME \
+  && echo pwd
 
 # Start up
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
