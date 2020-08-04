@@ -51,8 +51,8 @@ RUN apk add --update --no-cache \
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=Builder /app /app
 
-# Possible solution for Spro
-# RUN mkdir -p app/assets/config && echo '{}' > app/assets/config/manifest.js
+# Possible solution for Sprockets
+RUN mkdir -p app/assets/config && echo '{}' > app/assets/config/manifest.js
 
 # Set Rails environment variables
 ENV RAILS_ENV=production
