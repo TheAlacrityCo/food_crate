@@ -29,8 +29,8 @@ steps:
   secretEnv: ['DB_PASS', 'MASTER_KEY']
 
 # Push new image to Google Container Registry       
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA']
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: ['push', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA']
 
  # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -47,6 +47,8 @@ steps:
   - 'managed'
 
 timeout: 900s
+
+images: ['gcr.io/farm-link-284523/farm_link:$COMMIT_SHA']
 
 secrets:
   - kmsKeyName: projects/farm-link-284523/locations/us-central1/keyRings/farm-link-secrets/cryptoKeys/db_pass
