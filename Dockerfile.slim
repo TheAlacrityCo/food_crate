@@ -14,8 +14,7 @@ WORKDIR /app
 
 # Install gems
 ADD Gemfile* /app/
-RUN bundle config --global frozen 1 \
-  && bundle config set --without test development staging \
+RUN bundle config set --without test:development:staging --global frozen 1 \
   && bundle install -j4 --retry 3 \
   # Remove unneeded files (cached *.gem, *.o, *.c)
   && rm -rf /usr/local/bundle/cache/*.gem \
@@ -48,6 +47,7 @@ RUN apk add --update --no-cache \
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=Builder /app /app
 
 # Set Rails env
 ENV RAILS_ENV=production
