@@ -8,10 +8,6 @@ RUN apk add --update --no-cache \
   git \
   nodejs-current \
   yarn \
-  ca-certificates \
-  yaml-dev \
-  zlib-dev \
-  curl \
   tzdata
 
 WORKDIR /app
@@ -26,7 +22,7 @@ RUN bundle config set --global frozen 1 \
   && find /usr/local/bundle/gems/ -name "*.o" -delete
 
 # Install yarn packages
-COPY package.json yarn.lock /app/
+COPY package.json yarn.lock ./
 RUN yarn install --production
 
 # Add the Rails app
@@ -49,15 +45,14 @@ RUN apk add --update --no-cache \
   bash \
   postgresql-client \
   nodejs-current \
-  ca-certificates \
-  yaml-dev \
-  zlib-dev \
-  curl \
   tzdata
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=Builder /app /app
+
+# Possible solution for Spro
+# RUN mkdir -p app/assets/config && echo '{}' > app/assets/config/manifest.js
 
 # Set Rails environment variables
 ENV RAILS_ENV=production
