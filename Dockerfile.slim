@@ -8,6 +8,9 @@ RUN apk add --update --no-cache \
   git \
   nodejs \
   yarn \
+  yaml-dev \
+  zlib-dev \
+  curl \
   tzdata
 
 WORKDIR /app
@@ -51,6 +54,9 @@ RUN apk add --update --no-cache \
   postgresql-client \
   bash \
   nodejs \
+  yaml-dev \
+  zlib-dev \
+  curl \
   tzdata
 
 # Copy app with gems from former build stage
