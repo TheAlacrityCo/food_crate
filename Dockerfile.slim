@@ -15,7 +15,7 @@ WORKDIR /app
 # Install gems
 ADD Gemfile* /app/
 RUN bundle config --global frozen 1 \
-  && bundle config set --without test development \
+  && bundle config set --without test development staging \
   && bundle install -j4 --retry 3 \
   # Remove unneeded files (cached *.gem, *.o, *.c)
   && rm -rf /usr/local/bundle/cache/*.gem \
@@ -66,9 +66,9 @@ EXPOSE 8080
 
 # Save timestamp of image building
 RUN date -u > BUILD_TIME \
-  && echo pwd \
-  && echo ls
+  && pwd \
+  && ls
 
 # Start up
-RUN chmod +x /usr/src/app/entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
