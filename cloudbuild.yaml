@@ -25,7 +25,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA', 
          '--build-arg', 'DB_PASS', '--build-arg', 'MASTER_KEY',
-         '--file=./Dockerfile.slim', '.']
+         '--file', './Dockerfile.slim', '.']
   secretEnv: ['DB_PASS', 'MASTER_KEY']
 
 # Push new image to Google Container Registry       
