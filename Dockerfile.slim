@@ -14,8 +14,8 @@ WORKDIR /app
 
 # Install gems
 ADD Gemfile* /app/
-RUN bundle config set --without test:development:staging --global frozen 1 \
-  && bundle install -j4 --retry 3 \
+RUN bundle config set --global frozen 1 \
+  && bundle install --without test:development:staging -j4 --retry 3 \
   # Remove unneeded files (cached *.gem, *.o, *.c)
   && rm -rf /usr/local/bundle/cache/*.gem \
   && find /usr/local/bundle/gems/ -name "*.c" -delete \
@@ -42,31 +42,28 @@ FROM ruby:2.7.1-alpine
 # Add Alpine packages
 RUN apk add --update --no-cache \
   postgresql-client \
-  tzdata \
-  file
+  bash \
+  tzdata
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=Builder /app /app
 
-# Set Rails env
+# Set Rails environment variables
 ENV RAILS_ENV=production
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_SERVE_STATIC_FILES true
+ENV PORT 8080
 
+# Set DB_PASS environment variable from ARG
 ARG DB_PASS
 ENV DATABASE_PASSWORD=${DB_PASS}
 
-ENV PORT 8080
-
+# Set working directory
 WORKDIR /app
 
 # Expose Puma port
 EXPOSE 8080
-
-# Save timestamp of image building
-RUN date -u > BUILD_TIME \
-  && ls
 
 # Start up
 RUN chmod +x /app/entrypoint.sh
