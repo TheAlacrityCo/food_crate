@@ -45,7 +45,8 @@ RUN apk add --update --no-cache \
   bash \
   postgresql-client \
   nodejs-current \
-  tzdata
+  tzdata \
+  file
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
