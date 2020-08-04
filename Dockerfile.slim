@@ -1,0 +1,70 @@
+######################
+# Stage: Builder
+FROM ruby:2.7.1-alpine as Builder
+
+RUN apk add --update --no-cache \
+  build-base \
+  postgresql-dev \
+  git \
+  nodejs-current \
+  yarn \
+  tzdata
+
+WORKDIR /app
+
+# Install gems
+ADD Gemfile* /app/
+RUN bundle config --global frozen 1 \
+  && bundle install --without development test -j4 --retry 3 \
+  # Remove unneeded files (cached *.gem, *.o, *.c)
+  && rm -rf /usr/local/bundle/cache/*.gem \
+  && find /usr/local/bundle/gems/ -name "*.c" -delete \
+  && find /usr/local/bundle/gems/ -name "*.o" -delete
+
+# Install yarn packages
+COPY package.json yarn.lock /app/
+RUN yarn install --production
+
+# Add the Rails app
+ADD . /app
+
+# Precompile assets
+ARG MASTER_KEY
+RUN RAILS_ENV=production RAILS_MASTER_KEY=${MASTER_KEY} bundle exec rake assets:precompile
+
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache app/assets vendor/assets lib/assets spec
+
+###############################
+# Stage Runtime
+FROM ruby:2.7.1-alpine
+
+# Add Alpine packages
+RUN apk add --update --no-cache \
+  postgresql-client \
+  tzdata \
+  file
+
+# Copy app with gems from former build stage
+COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
+
+# Set Rails env
+ENV RAILS_ENV=production
+ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_SERVE_STATIC_FILES true
+
+ARG DB_PASS
+ENV DATABASE_PASSWORD=${DB_PASS}
+
+ENV PORT 8080
+
+WORKDIR /app
+
+# Expose Puma port
+EXPOSE 8080
+
+# Save timestamp of image building
+RUN date -u > BUILD_TIME
+
+# Start up
+ENTRYPOINT ["/app/entrypoint.sh"]
