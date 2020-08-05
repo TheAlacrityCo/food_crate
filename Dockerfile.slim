@@ -4,7 +4,7 @@ FROM ruby:2.7.1-alpine as Builder
 
 RUN apk add --update --no-cache \
   build-base \
-  certificates-ca \
+  ca-certificates \
   curl \
   git \
   postgresql-dev \
@@ -44,7 +44,7 @@ FROM ruby:2.7.1-alpine
 # Add Alpine packages
 RUN apk add --update --no-cache \
   bash \
-  certificates-ca \
+  ca-certificates \
   curl \
   postgresql-client \
   nodejs-current \
