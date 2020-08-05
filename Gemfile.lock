@@ -357,7 +357,7 @@ DEPENDENCIES
   jbuilder (~> 2.10)
   launchy
   listen (~> 3.2)
-  oj
+  oj (~> 3.10.6)
   pg (~> 1.2, >= 1.2.3)
   pry
   puma (~> 4.3, >= 4.3.5)
