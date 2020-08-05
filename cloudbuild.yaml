@@ -14,29 +14,22 @@ steps:
          "--location=us-central1", "--keyring=farm-link-secrets", 
          "--key=rails_key_master"]
 
-# Decrypt Farm Link service account credentials
-- name: gcr.io/cloud-builders/gcloud
-  args: ["kms", "decrypt", "--ciphertext-file=./config/farm_link.key.enc", 
-         "--plaintext-file=./config/farm_link.key",
-         "--location=us-central1", "--keyring=farm-link-secrets", 
-         "--key=farm_link_key"]
-
 # Build image with tag 'latest' and pass decrypted Rails DB password as argument
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA', 
+  args: ['build', '--tag', 'gcr.io/farm-link-284523/farm_link:$SHORT_SHA', 
          '--build-arg', 'DB_PASS', '--build-arg', 'MASTER_KEY',
          '--file=./Dockerfile.slim', '.']
   secretEnv: ['DB_PASS', 'MASTER_KEY']
 
 # Push new image to Google Container Registry       
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA']
+  args: ['push', 'gcr.io/farm-link-284523/farm_link:$SHORT_SHA']
 
  # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['run', 'deploy', 'farm-link-staging',
-  '--image', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA',
+  '--image', 'gcr.io/farm-link-284523/farm_link:$SHORT_SHA',
   '--region', 'us-central1', '--platform', 'managed']
 
 timeout: 900s
