@@ -27,7 +27,7 @@ steps:
 
  # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: [gcloud]
+  entrypoint: gcloud
   args: ['run', 'deploy', '${_SERVICE_NAME}',
   '--build-arg', 'service_name=${_SERVICE_NAME}',
   '--image', 'gcr.io/farm-link-284523/farm_link:$SHORT_SHA',
