@@ -4,8 +4,10 @@ FROM ruby:2.7.1-alpine as Builder
 
 RUN apk add --update --no-cache \
   build-base \
-  postgresql-dev \
+  certificates-ca \
+  curl \
   git \
+  postgresql-dev \
   nodejs-current \
   yarn \
   tzdata
@@ -42,10 +44,11 @@ FROM ruby:2.7.1-alpine
 # Add Alpine packages
 RUN apk add --update --no-cache \
   bash \
+  certificates-ca \
+  curl \
   postgresql-client \
   nodejs-current \
-  tzdata \
-  file
+  tzdata
 
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
