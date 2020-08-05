@@ -60,7 +60,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
-    bootsnap (1.4.6)
+    bootsnap (1.4.7)
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
@@ -137,7 +137,7 @@ GEM
       gapic-common (~> 0.2)
       google-cloud-errors (~> 1.0)
       grpc-google-iam-v1 (>= 0.6.10, < 2.0)
-    google-cloud-storage (1.26.2)
+    google-cloud-storage (1.27.0)
       addressable (~> 2.5)
       digest-crc (~> 0.4)
       google-api-client (~> 0.33)
@@ -206,8 +206,6 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-protection (2.0.8.1)
-      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -282,13 +280,13 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    semantic_range (2.3.0)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
-    sidekiq (6.0.7)
+    sidekiq (6.1.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      redis (>= 4.2.0)
     signet (0.14.0)
       addressable (~> 2.3)
       faraday (>= 0.17.3, < 2.0)
@@ -326,10 +324,11 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (4.2.2)
-      activesupport (>= 4.2)
+    webpacker (5.1.1)
+      activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -341,36 +340,36 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootsnap (>= 1.4.2)
+  bootsnap (~> 1.4, >= 1.4.7)
   byebug
   capybara
-  devise
+  devise (~> 4.7, >= 4.7.2)
   factory_bot_rails
   faker
-  faraday
-  figaro
-  google-cloud-secret_manager
-  google-cloud-storage
-  jbuilder (~> 2.7)
+  faraday (~> 1.0, >= 1.0.1)
+  figaro (~> 1.2)
+  google-cloud-secret_manager (~> 1.0)
+  google-cloud-storage (~> 1.27)
+  jbuilder (~> 2.10)
   launchy
   listen (~> 3.2)
-  pg (>= 0.18, < 2.0)
+  pg (~> 1.2, >= 1.2.3)
   pry
-  puma (~> 4.1)
+  puma (~> 4.3, >= 4.3.5)
   rails (~> 6.0.3, >= 6.0.3.2)
-  redis (~> 4.0)
+  redis (~> 4.2, >= 4.2.1)
   rspec-rails
   rspec_junit_formatter
   sass-rails (>= 6)
   shoulda-matchers
-  sidekiq
+  sidekiq (~> 6.1, >= 6.1.1)
   simplecov
-  turbolinks (~> 5)
+  turbolinks (~> 5.2, >= 5.2.1)
   tzinfo-data
   vcr
   web-console (>= 3.3.0)
   webmock
-  webpacker (~> 4.0)
+  webpacker (~> 5.1, >= 5.1.1)
 
 RUBY VERSION
    ruby 2.7.1p83

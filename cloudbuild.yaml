@@ -24,7 +24,8 @@ steps:
 # Build image with tag 'latest' and pass decrypted Rails DB password as argument
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA', 
-         '--build-arg', 'DB_PASS', '--build-arg', 'MASTER_KEY', '.']
+         '--build-arg', 'DB_PASS', '--build-arg', 'MASTER_KEY',
+         '--file=./Dockerfile.slim', '.']
   secretEnv: ['DB_PASS', 'MASTER_KEY']
 
 # Push new image to Google Container Registry       
@@ -34,16 +35,9 @@ steps:
  # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args:
-  - 'run'
-  - 'deploy'
-  - 'farm-link-staging'
-  - '--image'
-  - 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA'
-  - '--region'
-  - 'us-central1'
-  - '--platform'
-  - 'managed'
+  args: ['run', 'deploy', 'farm-link-staging',
+  '--image', 'gcr.io/farm-link-284523/farm_link:$COMMIT_SHA',
+  '--region', 'us-central1', '--platform', 'managed']
 
 timeout: 900s
 
