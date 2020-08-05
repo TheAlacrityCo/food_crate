@@ -100,6 +100,8 @@ GEM
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.13.1)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -196,6 +198,7 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    oj (3.10.8)
     orm_adapter (0.5.0)
     os (1.1.0)
     pg (1.2.3)
@@ -347,12 +350,14 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday (~> 1.0, >= 1.0.1)
+  fast_jsonapi
   figaro (~> 1.2)
   google-cloud-secret_manager (~> 1.0)
   google-cloud-storage (~> 1.27)
   jbuilder (~> 2.10)
   launchy
   listen (~> 3.2)
+  oj (~> 3.10.6)
   pg (~> 1.2, >= 1.2.3)
   pry
   puma (~> 4.3, >= 4.3.5)
