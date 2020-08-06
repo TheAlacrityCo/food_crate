@@ -1,20 +1,47 @@
 version: '3.1'
 services:
+
   db:
-    image: postgres
+    image: 'postgres:12.3-alpine'
     restart: always
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - 'postgres:/db:/var/lib/postgresql/data'
     environment:
       POSTGRES_PASSWORD: password
+
+  redis:
+    image: 'redis:6.0.6-alpine'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+  
   web:
     build:
       context: .
       dockerfile: Dockerfile.development
     volumes:
-      - .:/farm_link
+      - '.:/farm_link'
     ports:
-      - "3000:3000"
-    image: farm_link
+      - '3000:3000'
     depends_on:
       - db
+      - redis
+    environment:
+      - REDIS_URL_CACHING=redis://redis:6379/0
+
+#  sidekiq:
+#    depends_on:
+#       - "db"
+#       - "redis"
+#    build: .
+#    command: sidekiq -C config/sidekiq.yml
+#    volumes:
+#       - ".:/app"
+#    environment:
+#      REDIS_URL: redis://redis:6379/0
+
+volumes:
+  redis:
+  postgres:
