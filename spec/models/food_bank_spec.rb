@@ -12,6 +12,6 @@ RSpec.describe FoodBank, type: :model do
   end
 
   describe 'relationships' do
-    it { should have_many :users }
+    it { should belong_to :companies }
   end
 end

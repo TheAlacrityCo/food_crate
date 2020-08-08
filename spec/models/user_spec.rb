@@ -7,6 +7,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'relationships' do
-    it { should belong_to :employable }
+    it { should have_many :farms }
+    it { should have_many :food_banks }
+    it { should have_many :logistics_companies }
   end
 end

@@ -9,5 +9,5 @@ class Farm < ApplicationRecord
   enum need_level: %i[low medium high]
 
   has_many :foods
-  has_many :users, as: :employable
+  belongs_to :companies, polymorphic: true
 end

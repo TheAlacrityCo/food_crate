@@ -16,8 +16,10 @@ Ignore bundler config.
 /storage/*
 !/storage/.keep
 
+# Rails
 /public/assets
 .byebug_history
+.rspec
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
@@ -26,6 +28,7 @@ Ignore bundler config.
 /config/farm_link.key
 rails_production_key.txt
 
+# Ignore nodejs files
 /public/packs
 /public/packs-test
 /node_modules

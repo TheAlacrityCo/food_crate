@@ -7,5 +7,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :encrypted_password, presence: true
 
-  belongs_to :employable, polymorphic: true
+  has_many :farms, as: :companies
+  has_many :food_banks, as: :companies
+  has_many :logistics_companies, as: :companies
 end
