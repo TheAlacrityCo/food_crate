@@ -3,7 +3,11 @@ require 'simplecov'
 require 'spec_helper'
 require 'coveralls'
 
-SimpleCov.start('rails')
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter([
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+])
+SimpleCov.start
 Coveralls.wear!('rails')
 
 ENV['RAILS_ENV'] ||= 'test'
