@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'bootsnap', '~> 1.4', '>= 1.4.7'
+gem 'coveralls', require: false
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'faraday', '~> 1.0', '>= 1.0.1'
 gem 'fast_jsonapi'
