@@ -30,7 +30,7 @@ group :development, :test, :staging do
   gem 'launchy'
   gem 'pry'
   gem 'rspec_junit_formatter'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'vcr'
