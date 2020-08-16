@@ -3,7 +3,16 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :farms do
-    resources :foods
+  resources :farms, except: %i[index show] do
+    resources :foods, except: %i[index show]
+  end
+
+  scope module: :visitors do
+    scope module: :resources do
+      get '/farms', to: 'farms#index', as: 'farms_list'
+      get '/farms/:id', to: 'farms#show', as: 'farm_show'
+      get '/farms/:id/foods', to: 'foods#index', as: 'farm_food_items'
+      get '/farms/:id/foods/:id', to: 'foods#show', as: 'farm_food_item'
+    end
   end
 end
