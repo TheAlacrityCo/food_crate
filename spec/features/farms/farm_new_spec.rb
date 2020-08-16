@@ -25,5 +25,12 @@ RSpec.describe 'Create a new Farm resource as a user' do
     click_on 'Create Farm'
 
     expect(current_path).to eq('/farms')
+
+    farm = Farm.last
+    expect(page).to have_content(farm.name)
+    expect(page).to have_content(farm.country)
+    expect(page).to have_content(farm.state)
+    expect(page).to have_content(farm.address)
+    expect(page).to have_content(farm.phone)
   end
 end
