@@ -3,33 +3,22 @@ require 'rails_helper'
 RSpec.describe 'Create a new Farm resource as a user' do
   before :each do
     @user = create(:user)
-    @user.confirm
-    sign_in @user
+    # sign_in @user
 
-    @farm1 = @user.farm.create!(
-      name: 'Plant Farm',
-      state: 'Colorado',
-      country: 'US',
-      address: '123 Cool Farm Rd',
-      phone: '123-456-7890',
-      need_level: 1
-    )
+    visit '/users/sign_in'
+    fill_in 'user[email]', with: @user.email
+    fill_in 'user[password]', with: @user.encrypted_password
+    click_on 'Log in'
+
   end
 
   it 'There is a form on the new Farm view to create a farm resource' do
-    visit root
+    visit root_path
 
     expect(page).to have_link('Add a Farm')
-    click 'Add a farm'
+    click_on 'Add a Farm'
 
     expect(current_path).to eq('/farms/new')
-
-    expect(page).to have_field('Name')
-    expect(page).to have_field('State')
-    expect(page).to have_field('Country')
-    expect(page).to have_field('Address')
-    expect(page).to have_field('Phone')
-    expect(page).to have_field('Need Level')
 
     fill_in :name, with: 'The Garden Patch'
     fill_in :state, with: 'Maine'
