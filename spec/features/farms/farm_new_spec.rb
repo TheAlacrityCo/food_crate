@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Create a new Farm resource as a user' do
+RSpec.describe 'Create a Farm' do
   before :each do
     @user = create(:user)
     sign_in @user
   end
 
-  it 'There is a form on the new Farm view to create a farm resource' do
+  it 'can be successfully created' do
     visit root_path
 
     expect(page).to have_link('Add a Farm')
@@ -32,5 +32,27 @@ RSpec.describe 'Create a new Farm resource as a user' do
     expect(page).to have_content(farm.state)
     expect(page).to have_content(farm.address)
     expect(page).to have_content(farm.phone)
+  end
+
+  it 'can gracefully handle unsuccessful creation' do
+    visit root_path
+
+    expect(page).to have_link('Add a Farm')
+    click_on 'Add a Farm'
+
+    expect(current_path).to eq('/farms/new')
+    expect(page).to have_content(@user.email)
+
+    fill_in 'farm[name]', with: 'The Garden Patch'
+    fill_in 'farm[state]', with: 'Maine'
+    fill_in 'farm[country]', with: 'US'
+    fill_in 'farm[address]', with: '321 Veggie Drive'
+
+    click_on 'Create Farm'
+
+    expect(current_path).to eq('/farms/new')
+
+    expect(page).to have_content("Phone can't be blank")
+    expect(page).to have_content("Need level can't be blank")
   end
 end
