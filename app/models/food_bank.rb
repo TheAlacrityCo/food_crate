@@ -9,5 +9,5 @@ class FoodBank < ApplicationRecord
 
   enum need_level: %i[low medium high]
 
-  belongs_to :companies, polymorphic: true
+  belongs_to :user
 end

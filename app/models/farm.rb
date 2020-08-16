@@ -4,10 +4,10 @@ class Farm < ApplicationRecord
   validates :country, presence: true
   validates :address, presence: true
   validates :phone, presence: true
-  validates :need_level, presence: true
+  validates :need_level, presence: true, numericality: { only_integer: true }
 
   enum need_level: %i[low medium high]
 
   has_many :foods
-  belongs_to :companies, polymorphic: true
+  belongs_to :user
 end
