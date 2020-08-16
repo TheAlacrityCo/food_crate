@@ -12,7 +12,7 @@ RSpec.describe 'Create a new Farm resource as a user' do
 
   end
 
-  it 'There is a form on the new Farm view to create a farm resource' do
+  xit 'There is a form on the new Farm view to create a farm resource' do
     visit root_path
 
     expect(page).to have_link('Add a Farm')
