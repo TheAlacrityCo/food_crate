@@ -18,6 +18,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'vcr'
 require 'webmock/rspec'
+require 'devise'
 
 VCR.configure do |config|
   config.ignore_localhost = true
@@ -57,7 +58,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   # Login with Devise
-  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|
