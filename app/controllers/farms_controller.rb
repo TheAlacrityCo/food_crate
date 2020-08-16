@@ -23,6 +23,14 @@ class FarmsController < ApplicationController
   private
 
   def farm_params
-    params.require(:farm).permit(:name, :state, :country, :address, :phone, :need_level)
+    params.require(:farm).permit(
+      :name,
+      :state,
+      :country,
+      :address,
+      :phone,
+      :need_level,
+      :user_id
+    )
   end
 end
