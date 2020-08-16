@@ -13,6 +13,13 @@
 
   <body>
     <div>
+      <div>
+        <% if current_user %>
+          <%= current_user.email  %>
+        <% else %>
+          <%= link_to 'Sign In', new_user_session_path %>
+        <% end %>
+      </div>
       <% flash.each do |type, msg| %>
         <% type = 'info' if type == 'notice' %>
         <% type = 'warning' if type == 'alert' %>
