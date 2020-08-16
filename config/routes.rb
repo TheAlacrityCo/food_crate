@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :farms do
-    resources :foods
+  devise_scope :user do
+    resources :farms do
+      resources :foods
+    end
   end
 end
