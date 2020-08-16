@@ -1,25 +1,46 @@
 <h1>Add a new Farm</h1>
 
 <%= form_with model: @farm do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
 
-  <%= f.label :state %>
-  <%= f.text_field :state %>
+  <div>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </div>
 
-  <%= f.label :country %>
-  <%= f.text_field :country %>
+  <div>
+    <%= f.label :country %>
+    <%= f.text_field :country %>
+  </div>
 
-  <%= f.label :address %>
-  <%= f.text_field :address %>
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
 
-  <%= f.label :phone %>
-  <%= f.text_field :phone %>
+  <div>
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
 
-  <%= f.label :need_level %>
-  <%= f.text_field :need_level %>
+  <h4>Need Level</h4>
+  <div>
+    <%= f.radio_button(:need_level, "low") %>
+    <%= f.label(:need_low, "low") %>
+  </div>
+  <div>
+    <%= f.radio_button(:need_level, "medium") %>
+    <%= f.label(:need_medium, "medium") %>
+  </div>
+  <div>
+  <%= f.radio_button(:need_level, "high") %>
+  <%= f.label(:need_high, "high") %>
+  </div>
 
-  <%= hidden_field_tag :companies_id, current_user.id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
 
   <%= f.submit %>
 <% end %>
