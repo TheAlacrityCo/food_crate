@@ -3,7 +3,7 @@
 cd /app
 
 # Create the Rails production DB on first run
-RAILS_ENV=production bundle exec rake db:reset
+RAILS_ENV=production bundle exec rake db:create
 
 # Make sure we are using the most up to date
 # database schema
