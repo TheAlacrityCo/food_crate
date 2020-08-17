@@ -1,19 +1,26 @@
 FROM ruby:2.7.1
 
 # Install and update dependencies
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt-get update && \
+  apt-get install -qq -y build-essential libpq-dev nodejs yarn postgresql-client
 
 # Set working directory
 RUN mkdir /farm_link
 WORKDIR /farm_link
 
 # Copy Gemfile and bundle install
-COPY Gemfile ./Gemfile
-COPY Gemfile.lock ./Gemfile.lock
+COPY Gemfile* /farm_link/
 RUN bundle install
 
+# Install yarn packages
+COPY package.json yarn.lock /farm_link/
+RUN yarn install
+
 # Copy code into container
-COPY . .
+COPY . /farm_link
 
 # Expose external port
 EXPOSE 3000
