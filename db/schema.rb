@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_012652) do
+ActiveRecord::Schema.define(version: 2020_08_15_060201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,8 @@ ActiveRecord::Schema.define(version: 2020_08_07_012652) do
     t.integer "need_level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "companies_type"
-    t.bigint "companies_id"
-    t.index ["companies_type", "companies_id"], name: "index_farms_on_companies_type_and_companies_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_farms_on_user_id"
   end
 
   create_table "food_banks", force: :cascade do |t|
@@ -39,9 +38,8 @@ ActiveRecord::Schema.define(version: 2020_08_07_012652) do
     t.integer "capacity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "companies_type"
-    t.bigint "companies_id"
-    t.index ["companies_type", "companies_id"], name: "index_food_banks_on_companies_type_and_companies_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_food_banks_on_user_id"
   end
 
   create_table "foods", force: :cascade do |t|
@@ -62,9 +60,8 @@ ActiveRecord::Schema.define(version: 2020_08_07_012652) do
     t.integer "max_load"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "companies_type"
-    t.bigint "companies_id"
-    t.index ["companies_type", "companies_id"], name: "index_logistics_companies_on_companies_type_and_companies_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_logistics_companies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,12 +72,12 @@ ActiveRecord::Schema.define(version: 2020_08_07_012652) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "employable_type"
-    t.bigint "employable_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["employable_type", "employable_id"], name: "index_users_on_employable_type_and_employable_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "farms", "users"
+  add_foreign_key "food_banks", "users"
   add_foreign_key "foods", "farms"
+  add_foreign_key "logistics_companies", "users"
 end

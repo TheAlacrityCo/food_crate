@@ -1,0 +1,46 @@
+<h1>Add a new Farm</h1>
+
+<%= form_with model: @farm do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </div>
+
+  <div>
+    <%= f.label :country %>
+    <%= f.text_field :country %>
+  </div>
+
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
+
+  <h4>Need Level</h4>
+  <div>
+    <%= f.radio_button(:need_level, "low") %>
+    <%= f.label(:need_low, "low") %>
+  </div>
+  <div>
+    <%= f.radio_button(:need_level, "medium") %>
+    <%= f.label(:need_medium, "medium") %>
+  </div>
+  <div>
+    <%= f.radio_button(:need_level, "high") %>
+    <%= f.label(:need_high, "high") %>
+  </div>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <%= f.submit %>
+<% end %>
