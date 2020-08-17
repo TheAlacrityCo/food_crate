@@ -36,8 +36,8 @@
     <%= f.label(:need_medium, "medium") %>
   </div>
   <div>
-  <%= f.radio_button(:need_level, "high") %>
-  <%= f.label(:need_high, "high") %>
+    <%= f.radio_button(:need_level, "high") %>
+    <%= f.label(:need_high, "high") %>
   </div>
 
   <%= f.hidden_field :user_id, value: current_user.id %>
