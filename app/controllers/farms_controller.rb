@@ -15,7 +15,7 @@ class FarmsController < ApplicationController
       flash[:success] = 'Farm created successfully.'
       redirect_to farms_list_path
     else
-      flash[:warning] = farm.errors.full_messages.to_sentence
+      flash[:warning] = farm.errors.full_messages.to_sentence + '.'
       redirect_to new_farm_path
     end
   end
