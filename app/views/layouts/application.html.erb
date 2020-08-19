@@ -28,7 +28,7 @@
               <%= link_to 'Food', '#', class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Logistics', '#', class: 'nav-link' %>
+              <%= link_to 'Logistics', logistics_list_path, class: 'nav-link' %>
             </li>
             <% if current_user == nil %>
               <li class="nav-item float-right">
