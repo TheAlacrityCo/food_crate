@@ -7,12 +7,17 @@ Rails.application.routes.draw do
     resources :foods, except: %i[index show]
   end
 
+  resources :logistics_companies, except: %i[index show]
+
   scope module: :visitors do
     scope module: :resources do
       get '/farms', to: 'farms#index', as: 'farms_list'
       get '/farms/:farm_id', to: 'farms#show', as: 'farm_show'
       get '/farms/:farm_id/foods', to: 'foods#index', as: 'farm_food_items'
       get '/farms/:farm_id/foods/:food_id', to: 'foods#show', as: 'farm_food_item'
+
+      get '/logistics', to: 'logistics#index', as: 'logistics_list'
+      get '/logistics/:logistics_company_id', to: 'logistics#show', as: 'logistics_show'
     end
   end
 end
