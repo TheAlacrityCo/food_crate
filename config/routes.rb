@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   scope module: :visitors do
     scope module: :resources do
       get '/farms', to: 'farms#index', as: 'farms_list'
-      get '/farms/:id', to: 'farms#show', as: 'farm_show'
-      get '/farms/:id/foods', to: 'foods#index', as: 'farm_food_items'
-      get '/farms/:id/foods/:id', to: 'foods#show', as: 'farm_food_item'
+      get '/farms/:farm_id', to: 'farms#show', as: 'farm_show'
+      get '/farms/:farm_id/foods', to: 'foods#index', as: 'farm_food_items'
+      get '/farms/:farm_id/foods/:food_id', to: 'foods#show', as: 'farm_food_item'
     end
   end
 end

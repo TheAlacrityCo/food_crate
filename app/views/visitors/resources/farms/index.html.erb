@@ -1,15 +1,24 @@
-<h1>Farms</h1>
-<div>
+<div class="container-md header-space">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Farms</h1>
+      <%= link_to 'Add a Farm', new_farm_path %>
+    </div>
+  </div>
   <% @farms.each do |farm| %>
-    <section>
-    <h2><%= farm.name %></h2>
-      <ul>
-        <li><%= farm.state %></li>
-        <li><%= farm.country %></li>
-        <li><%= farm.address %></li>
-        <li><%= farm.phone %></li>
-        <li><%= farm.need_level %></li>
-      </ul>
-    </section>
+    <div class="row resource-space">
+      <div class="col-md-4">
+        <h2><%= farm.name %></h2>
+        <ul>
+          <li>State :: <%= farm.state %></li>
+          <li>Country :: <%= farm.country %></li>
+          <li>Address :: <%= farm.address %></li>
+          <li>Phone :: <%= farm.phone %></li>
+          <li>Need Level :: <%= farm.need_level %></li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+      </div>
+    </div>
   <% end %>
 </div>

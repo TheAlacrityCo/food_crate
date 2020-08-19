@@ -9,7 +9,11 @@ RSpec.describe 'Create a Farm' do
   it 'can be successfully created' do
     visit root_path
 
+    click_on 'Farms'
+
+    expect(current_path).to eq('/farms')
     expect(page).to have_link('Add a Farm')
+
     click_on 'Add a Farm'
 
     expect(current_path).to eq('/farms/new')
@@ -35,7 +39,7 @@ RSpec.describe 'Create a Farm' do
   end
 
   it 'can gracefully handle unsuccessful creation' do
-    visit root_path
+    visit farms_list_path
 
     expect(page).to have_link('Add a Farm')
     click_on 'Add a Farm'
