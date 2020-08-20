@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :logistics_companies, except: %i[index show]
 
+  resources :food_banks, only: [:new, :create]
+
   scope module: :visitors do
     scope module: :resources do
       get '/farms', to: 'farms#index', as: 'farms_list'
@@ -18,6 +20,8 @@ Rails.application.routes.draw do
 
       get '/logistics', to: 'logistics#index', as: 'logistics_list'
       get '/logistics/:logistics_company_id', to: 'logistics#show', as: 'logistics_show'
+
+      get '/food_banks', to: 'food_banks#index', as: 'food_banks_list'
     end
   end
 end
