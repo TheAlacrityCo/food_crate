@@ -15,7 +15,7 @@ RSpec.describe 'Food Banks Index' do
         expect(page).to have_content(@food_bank.country)
         expect(page).to have_content(@food_bank.address)
         expect(page).to have_content(@food_bank.phone)
-        expect(page).to have_content(%i[low medium high][@food_bank.need_level].to_s)
+        expect(page).to have_content(@food_bank.need_level)
         expect(page).to have_content(@food_bank.capacity)
     end
   end
