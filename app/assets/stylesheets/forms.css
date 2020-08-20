@@ -1,0 +1,21 @@
+.submit-button {
+  margin-top: 1em;
+}
+
+.form-field {
+  margin-bottom: .5em;
+}
+
+.form-label {
+  /* font-weight: bold; */
+  font-size: 1.25em;
+}
+
+.radio-button {
+  transform: scale(1.5);
+  margin-right: .25em;
+}
+
+.radio-button-pad {
+  padding-left: .5em;
+}
