@@ -21,7 +21,7 @@ RSpec.describe 'Create a Logistics Company' do
 
     fill_in 'logistics_company[name]', with: 'The Garden Patch'
     fill_in 'logistics_company[state]', with: 'Maine'
-    fill_in 'logistics_company[country]', with: 'US'
+    choose 'logistics_company_country_united_states'
     fill_in 'logistics_company[address]', with: '321 Veggie Drive'
     fill_in 'logistics_company[phone]', with: '321-654-0987'
     fill_in 'logistics_company[max_load]', with: 7
@@ -48,7 +48,7 @@ RSpec.describe 'Create a Logistics Company' do
 
     fill_in 'logistics_company[name]', with: 'The Garden Patch'
     fill_in 'logistics_company[state]', with: 'Maine'
-    fill_in 'logistics_company[country]', with: 'US'
+    choose 'logistics_company_country_united_states'
     fill_in 'logistics_company[address]', with: '321 Veggie Drive'
 
     click_on 'Create Logistics company'
