@@ -21,10 +21,10 @@ RSpec.describe 'Create a Farm' do
 
     fill_in 'farm[name]', with: 'The Garden Patch'
     fill_in 'farm[state]', with: 'Maine'
-    fill_in 'farm[country]', with: 'US'
+    choose 'farm_country_united_states'
     fill_in 'farm[address]', with: '321 Veggie Drive'
     fill_in 'farm[phone]', with: '321-654-0987'
-    choose 'farm_need_level_low'
+    choose 'farm_need_level_high'
 
     click_on 'Create Farm'
 
@@ -49,7 +49,7 @@ RSpec.describe 'Create a Farm' do
 
     fill_in 'farm[name]', with: 'The Garden Patch'
     fill_in 'farm[state]', with: 'Maine'
-    fill_in 'farm[country]', with: 'US'
+    choose 'farm_country_united_states'
     fill_in 'farm[address]', with: '321 Veggie Drive'
 
     click_on 'Create Farm'

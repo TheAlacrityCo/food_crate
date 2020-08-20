@@ -25,10 +25,10 @@
               <%= link_to 'Farms', farms_list_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Food', '#', class: 'nav-link' %>
+              <%= link_to 'Food Banks', '#', class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Logistics', '#', class: 'nav-link' %>
+              <%= link_to 'Logistics', logistics_list_path, class: 'nav-link' %>
             </li>
             <% if current_user == nil %>
               <li class="nav-item float-right">
@@ -73,7 +73,7 @@
     <%= yield %>
 
     <%# Footer %>
-    <footer class="container">
+    <footer class="container margin-top">
       <p class="float-right"><a href="#">Back to top</a></p>
       <p>&copy; 2020 Food Link</p>
     </footer>
