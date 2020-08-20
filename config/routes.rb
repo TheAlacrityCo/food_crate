@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :logistics_companies, except: %i[index show]
 
+  resources :food_banks, only: [:new, :create]
+
   scope module: :visitors do
     scope module: :resources do
       get '/farms', to: 'farms#index', as: 'farms_list'
