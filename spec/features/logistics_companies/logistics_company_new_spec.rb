@@ -38,40 +38,39 @@ RSpec.describe 'Create a Logistics Company' do
     expect(page).to have_content(logistics_company.phone)
   end
 
-  xit 'can gracefully handle unsuccessful creation' do
-    visit farms_list_path
+  it 'can gracefully handle unsuccessful creation' do
+    visit logistics_list_path
 
-    expect(page).to have_link('Add a Farm')
-    click_on 'Add a Farm'
+    click_on 'Add a Logistics Company'
 
-    expect(current_path).to eq('/farms/new')
+    expect(current_path).to eq('/logistics_companies/new')
     expect(page).to have_content(@user.email)
 
-    fill_in 'farm[name]', with: 'The Garden Patch'
-    fill_in 'farm[state]', with: 'Maine'
-    fill_in 'farm[country]', with: 'US'
-    fill_in 'farm[address]', with: '321 Veggie Drive'
+    fill_in 'logistics_company[name]', with: 'The Garden Patch'
+    fill_in 'logistics_company[state]', with: 'Maine'
+    fill_in 'logistics_company[country]', with: 'US'
+    fill_in 'logistics_company[address]', with: '321 Veggie Drive'
 
-    click_on 'Create Farm'
+    click_on 'Create Logistics company'
 
-    expect(current_path).to eq('/farms/new')
+    expect(current_path).to eq('/logistics_companies/new')
 
     expect(page).to have_content("Phone can't be blank")
-    expect(page).to have_content("Need level can't be blank")
+    expect(page).to have_content("Max load can't be blank")
   end
 
-  xit 'can only be created by registered users' do
-    visit new_farm_path
+  it 'can only be created by registered users' do
+    visit new_logistics_company_path
 
-    expect(page).to have_field('farm[name]')
-    expect(page).to have_field('farm[country]')
-    expect(page).to have_field('farm[state]')
-    expect(page).to have_field('farm[address]')
-    expect(page).to have_field('farm[phone]')
+    expect(page).to have_field('logistics_company[name]')
+    expect(page).to have_field('logistics_company[country]')
+    expect(page).to have_field('logistics_company[state]')
+    expect(page).to have_field('logistics_company[address]')
+    expect(page).to have_field('logistics_company[phone]')
 
     sign_out @user
 
-    visit new_farm_path
+    visit new_logistics_company_path
 
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_content("You need to sign in or sign up before continuing.")
