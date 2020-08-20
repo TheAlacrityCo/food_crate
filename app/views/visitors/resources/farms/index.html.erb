@@ -8,7 +8,7 @@
   <% @farms.each do |farm| %>
     <div class="row resource-space">
       <div class="col-md-4">
-        <h2><%= farm.name %></h2>
+        <h2><%= link_to farm.name, farm_show_path(farm) %> </h2>
         <ul>
           <li>State :: <%= farm.state %></li>
           <li>Country :: <%= farm.country %></li>
