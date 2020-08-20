@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
       get '/logistics', to: 'logistics#index', as: 'logistics_list'
       get '/logistics/:logistics_company_id', to: 'logistics#show', as: 'logistics_show'
+
+      get '/food_banks', to: 'food_banks#index', as: 'food_banks_list'
     end
   end
 end
