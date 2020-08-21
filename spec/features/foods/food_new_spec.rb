@@ -4,6 +4,8 @@ RSpec.describe 'Create a Food' do
   before :each do
     @user = create(:user)
     sign_in @user
+
+    @farm = create(:farm, user: @user)
   end
 
   it 'can be successfully created' do
@@ -13,63 +15,82 @@ RSpec.describe 'Create a Food' do
 
     expect(current_path).to eq('/farms')
 
-    click_on 'Add a Logistics Company'
+    click_on @farm.name
 
-    expect(current_path).to eq('/logistics_companies/new')
-    expect(page).to have_content(@user.email)
+    expect(current_path).to eq(farm_show_path(@farm))
+    expect(page).to have_content(@farm.name)
+    expect(page).to have_content(@farm.state)
+    expect(page).to have_content(@farm.country)
+    expect(page).to have_content(@farm.phone)
+    expect(page).to have_content(@farm.address)
+    expect(page).to have_content(@farm.need_level)
+    expect(page).to have_link('Add Food')
 
-    fill_in 'logistics_company[name]', with: 'The Garden Patch'
-    fill_in 'logistics_company[state]', with: 'Maine'
-    choose 'logistics_company_country_united_states'
-    fill_in 'logistics_company[address]', with: '321 Veggie Drive'
-    fill_in 'logistics_company[phone]', with: '321-654-0987'
-    fill_in 'logistics_company[max_load]', with: 7
+    click_on 'Add Food'
 
-    click_on 'Create Logistics company'
+    expect(current_path).to eq("/farms/#{@farm.id}/foods/new")
 
-    expect(current_path).to eq('/logistics')
+    fill_in 'food[name]', with: 'Peaches'
+    choose 'food_unit_type_lbs'
+    fill_in 'food[amount]', with: 25
+    fill_in 'food[expiration]', with: Date.new(2021, 8, 22)
 
-    logistics_company = LogisticsCompany.last
-    expect(page).to have_content(logistics_company.name)
-    expect(page).to have_content(logistics_company.country)
-    expect(page).to have_content(logistics_company.state)
-    expect(page).to have_content(logistics_company.address)
-    expect(page).to have_content(logistics_company.phone)
+    click_on 'Create Food'
+
+    expect(current_path).to eq("/farms/#{@farm.id}")
+
+    food = @farm.foods.last
+
+    expect(page).to have_content('Peaches')
+    expect(page).to have_content(food.amount)
+    expect(page).to have_content(food.unit_type)
+    expect(page).to have_content(food.expiration.to_formatted_s(:long_ordinal))
   end
 
-  xit 'can gracefully handle unsuccessful creation' do
-    visit logistics_list_path
+  it 'can gracefully handle unsuccessful creation' do
+    visit root_path
 
-    click_on 'Add a Logistics Company'
+    click_on 'Farms'
 
-    expect(current_path).to eq('/logistics_companies/new')
-    expect(page).to have_content(@user.email)
+    expect(current_path).to eq('/farms')
 
-    fill_in 'logistics_company[name]', with: 'The Garden Patch'
-    fill_in 'logistics_company[state]', with: 'Maine'
-    choose 'logistics_company_country_united_states'
-    fill_in 'logistics_company[address]', with: '321 Veggie Drive'
+    click_on @farm.name
 
-    click_on 'Create Logistics company'
+    expect(current_path).to eq(farm_show_path(@farm))
+    expect(page).to have_content(@farm.name)
+    expect(page).to have_content(@farm.state)
+    expect(page).to have_content(@farm.country)
+    expect(page).to have_content(@farm.phone)
+    expect(page).to have_content(@farm.address)
+    expect(page).to have_content(@farm.need_level)
+    expect(page).to have_link('Add Food')
 
-    expect(current_path).to eq('/logistics_companies/new')
+    click_on 'Add Food'
 
-    expect(page).to have_content("Phone can't be blank")
-    expect(page).to have_content("Max load can't be blank")
+    expect(current_path).to eq("/farms/#{@farm.id}/foods/new")
+
+    fill_in 'food[name]', with: 'Peaches'
+    choose 'food_unit_type_lbs'
+    fill_in 'food[amount]', with: 25
+
+    click_on 'Create Food'
+
+    expect(current_path).to eq("/farms/#{@farm.id}/foods/new")
+
+    expect(page).to have_content("Expiration can't be blank")
   end
 
-  xit 'can only be created by registered users' do
-    visit new_logistics_company_path
+  it 'can only be created by registered users' do
+    visit "/farms/#{@farm.id}/foods/new"
 
-    expect(page).to have_field('logistics_company[name]')
-    expect(page).to have_field('logistics_company[country]')
-    expect(page).to have_field('logistics_company[state]')
-    expect(page).to have_field('logistics_company[address]')
-    expect(page).to have_field('logistics_company[phone]')
+    expect(page).to have_field('food[name]')
+    expect(page).to have_field('food[amount]')
+    expect(page).to have_field('food[expiration]')
+    expect(page).to have_field('food[unit_type]')
 
     sign_out @user
 
-    visit new_logistics_company_path
+    visit "/farms/#{@farm.id}/foods/new"
 
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_content("You need to sign in or sign up before continuing.")
