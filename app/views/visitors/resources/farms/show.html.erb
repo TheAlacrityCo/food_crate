@@ -17,4 +17,16 @@
       </ul>
     </div>
   </div>
+  <h3>Foods</h3>
+  <% @farm.foods.each do |food| %>
+    <div class="row resource-space">
+      <div class="col-md-12">
+        <h4><%= food.name %></h4>
+        <ul>
+          <li><%= "Amount (#{food.unit_type})" %> :: <%= food.amount %></li>
+          <li>Expiration :: <%= food.expiration.to_formatted_s(:long_ordinal) %></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 </div>
