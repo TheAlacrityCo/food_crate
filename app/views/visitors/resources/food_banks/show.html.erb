@@ -1,0 +1,20 @@
+<div class="container-md header-space">
+  <div class="row">
+    <div class="col-md-12">
+      <h1><%= link_to 'Food Banks', food_banks_list_path %></h1>
+    </div>
+  </div>
+  <div class="row resource-space">
+    <div class="col-md-12">
+      <h2><%= @food_bank.name %></h2>
+      <ul>
+        <li>State :: <%= @food_bank.state %></li>
+        <li>Country :: <%= @food_bank.country %></li>
+        <li>Address :: <%= @food_bank.address %></li>
+        <li>Phone :: <%= @food_bank.phone %></li>
+        <li>Need Level :: <%= @food_bank.need_level %></li>
+        <li>Capacity :: <%= @food_bank.capacity %></li>
+      </ul>
+    </div>
+  </div>
+</div>
