@@ -4,6 +4,6 @@ class Visitors::Resources::FarmsController < ApplicationController
   end
 
   def show
-    @farm = Farm.find(params[:id])
+    @farm = Farm.find(params[:farm_id])
   end
 end

@@ -1,0 +1,24 @@
+<div class="container-md header-space">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Logistics</h1>
+      <%= link_to 'Add a Logistics Company', new_logistics_company_path %>
+    </div>
+  </div>
+  <% @logistics.each do |company| %>
+    <div class="row resource-space">
+      <div class="col-md-4">
+        <h2><%= link_to company.name, logistics_show_path(company) %></h2>
+        <ul>
+          <li>State :: <%= company.state %></li>
+          <li>Country :: <%= company.country %></li>
+          <li>Address :: <%= company.address %></li>
+          <li>Phone :: <%= company.phone %></li>
+          <li>Max Load :: <%= company.max_load %></li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+      </div>
+    </div>
+  <% end %>
+</div>
