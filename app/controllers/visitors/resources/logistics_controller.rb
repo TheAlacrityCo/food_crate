@@ -4,6 +4,6 @@ class Visitors::Resources::LogisticsController < ApplicationController
   end
 
   def show
-    # show
+    @company = LogisticsCompany.find(params[:logistics_company_id])
   end
 end
