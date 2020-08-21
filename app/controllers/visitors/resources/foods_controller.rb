@@ -4,6 +4,6 @@ class Visitors::Resources::FoodsController < ApplicationController
   end
 
   def show
-    @food = Food.find(params[:id])
+    @food = Food.find(params[:food_id])
   end
 end

@@ -9,7 +9,7 @@
     <% @food_banks.each do |food_bank| %>
     <div class="row resource-space">
       <div class="col-md-4">
-        <h2><%= food_bank.name %></h2>
+        <h2><%= link_to food_bank.name, food_bank_show_path(food_bank) %></h2>
         <ul>
           <li>State :: <%= food_bank.state %></li>
           <li>Country :: <%= food_bank.country %></li>

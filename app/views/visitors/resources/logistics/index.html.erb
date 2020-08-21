@@ -8,7 +8,7 @@
   <% @logistics.each do |company| %>
     <div class="row resource-space">
       <div class="col-md-4">
-        <h2><%= company.name %></h2>
+        <h2><%= link_to company.name, logistics_show_path(company) %></h2>
         <ul>
           <li>State :: <%= company.state %></li>
           <li>Country :: <%= company.country %></li>
