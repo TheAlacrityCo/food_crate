@@ -6,5 +6,6 @@ FactoryBot.define do
     address { Faker::Address.street_address }
     phone { Faker::PhoneNumber.phone_number }
     max_load { rand(10..2000) }
+    association :user
   end
 end

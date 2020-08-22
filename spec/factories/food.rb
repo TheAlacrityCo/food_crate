@@ -4,6 +4,6 @@ FactoryBot.define do
     unit_type { "lbs" }
     amount { Faker::Measurement.weight }
     expiration { Faker::Date.between(from: 200.days.ago, to: Date.today) }
-    association :farm
+    association :supplier
   end
 end
