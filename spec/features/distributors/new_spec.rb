@@ -48,6 +48,27 @@ RSpec.describe 'Distributors New:' do
         expect(page).to have_content(distributor[:need_level])
         expect(page).to have_content(distributor[:capacity])
       end
+
+      distributor = Distributor.last
+      expect(page).to have_link(distributor.name)
+      expect(page).to have_content(distributor.country)
+      expect(page).to have_content(distributor.state)
+      expect(page).to have_content(distributor.address)
+      expect(page).to have_content(distributor.phone)
+      expect(page).to have_content(distributor.need_level)
+      expect(page).to have_content(distributor.type_display)
+
+      click_on distributor.name
+
+      expect(current_path).to eq(distributor_show_path(distributor))
+      expect(page).to have_content(distributor.name)
+      expect(page).to have_content(distributor.country)
+      expect(page).to have_content(distributor.state)
+      expect(page).to have_content(distributor.address)
+      expect(page).to have_content(distributor.phone)
+      expect(page).to have_content(distributor.need_level)
+      expect(page).to have_content(distributor.type_display)
+      expect(page).to have_link("Distributors")
     end
 
     it 'cannot add new distributor with missing credentials' do
