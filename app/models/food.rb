@@ -5,4 +5,8 @@ class Food < ApplicationRecord
   validates :expiration, presence: true
 
   belongs_to :supplier
+
+  def display
+    expiration.to_formatted_s(:long_ordinal).delete_suffix("00:00").strip
+  end
 end
