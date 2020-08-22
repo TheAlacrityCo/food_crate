@@ -6,14 +6,14 @@ class FoodsController < ApplicationController
   end
 
   def create
-    farm = Farm.find(params[:farm_id])
-    food = farm.foods.new(food_params)
+    supplier = Supplier.find(params[:supplier_id])
+    food = supplier.foods.new(food_params)
     if food.save
       flash[:success] = 'Food created successfully.'
-      redirect_to farm_show_path(food.farm_id)
+      redirect_to supplier_show_path(food.supplier_id)
     else
       flash[:warning] = food.errors.full_messages.to_sentence + '.'
-      redirect_to new_farm_food_path
+      redirect_to new_supplier_food_path
     end
   end
 
@@ -25,7 +25,7 @@ class FoodsController < ApplicationController
       :amount,
       :unit_type,
       :expiration,
-      :farm_id
+      :supplier_id
     )
   end
 end
