@@ -5,30 +5,30 @@ RSpec.describe 'Create a Food' do
     @user = create(:user)
     sign_in @user
 
-    @farm = create(:farm, user: @user)
+    @supplier = create(:supplier, user: @user)
   end
 
   it 'can be successfully created' do
     visit root_path
 
-    click_on 'Farms'
+    click_on 'Suppliers'
 
-    expect(current_path).to eq('/farms')
+    expect(current_path).to eq('/suppliers')
 
-    click_on @farm.name
+    click_on @supplier.name
 
-    expect(current_path).to eq(farm_show_path(@farm))
-    expect(page).to have_content(@farm.name)
-    expect(page).to have_content(@farm.state)
-    expect(page).to have_content(@farm.country)
-    expect(page).to have_content(@farm.phone)
-    expect(page).to have_content(@farm.address)
-    expect(page).to have_content(@farm.need_level)
+    expect(current_path).to eq(supplier_show_path(@supplier))
+    expect(page).to have_content(@supplier.name)
+    expect(page).to have_content(@supplier.state)
+    expect(page).to have_content(@supplier.country)
+    expect(page).to have_content(@supplier.phone)
+    expect(page).to have_content(@supplier.address)
+    expect(page).to have_content(@supplier.supplier_type)
     expect(page).to have_link('Add Food')
 
     click_on 'Add Food'
 
-    expect(current_path).to eq("/farms/#{@farm.id}/foods/new")
+    expect(current_path).to eq("/suppliers/#{@supplier.id}/foods/new")
 
     fill_in 'food[name]', with: 'Peaches'
     choose 'food_unit_type_lbs'
@@ -37,9 +37,9 @@ RSpec.describe 'Create a Food' do
 
     click_on 'Create Food'
 
-    expect(current_path).to eq("/farms/#{@farm.id}")
+    expect(current_path).to eq("/suppliers/#{@supplier.id}")
 
-    food = @farm.foods.last
+    food = @supplier.foods.last
 
     expect(page).to have_content('Peaches')
     expect(page).to have_content(food.amount)
@@ -50,24 +50,24 @@ RSpec.describe 'Create a Food' do
   it 'can gracefully handle unsuccessful creation' do
     visit root_path
 
-    click_on 'Farms'
+    click_on 'Suppliers'
 
-    expect(current_path).to eq('/farms')
+    expect(current_path).to eq('/suppliers')
 
-    click_on @farm.name
+    click_on @supplier.name
 
-    expect(current_path).to eq(farm_show_path(@farm))
-    expect(page).to have_content(@farm.name)
-    expect(page).to have_content(@farm.state)
-    expect(page).to have_content(@farm.country)
-    expect(page).to have_content(@farm.phone)
-    expect(page).to have_content(@farm.address)
-    expect(page).to have_content(@farm.need_level)
+    expect(current_path).to eq(supplier_show_path(@supplier))
+    expect(page).to have_content(@supplier.name)
+    expect(page).to have_content(@supplier.state)
+    expect(page).to have_content(@supplier.country)
+    expect(page).to have_content(@supplier.phone)
+    expect(page).to have_content(@supplier.address)
+    expect(page).to have_content(@supplier.supplier_type)
     expect(page).to have_link('Add Food')
 
     click_on 'Add Food'
 
-    expect(current_path).to eq("/farms/#{@farm.id}/foods/new")
+    expect(current_path).to eq("/suppliers/#{@supplier.id}/foods/new")
 
     fill_in 'food[name]', with: 'Peaches'
     choose 'food_unit_type_lbs'
@@ -75,13 +75,13 @@ RSpec.describe 'Create a Food' do
 
     click_on 'Create Food'
 
-    expect(current_path).to eq("/farms/#{@farm.id}/foods/new")
+    expect(current_path).to eq("/suppliers/#{@supplier.id}/foods/new")
 
     expect(page).to have_content("Expiration can't be blank")
   end
 
   it 'can only be created by registered users' do
-    visit "/farms/#{@farm.id}/foods/new"
+    visit "/suppliers/#{@supplier.id}/foods/new"
 
     expect(page).to have_field('food[name]')
     expect(page).to have_field('food[amount]')
@@ -90,7 +90,7 @@ RSpec.describe 'Create a Food' do
 
     sign_out @user
 
-    visit "/farms/#{@farm.id}/foods/new"
+    visit "/suppliers/#{@supplier.id}/foods/new"
 
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_content("You need to sign in or sign up before continuing.")

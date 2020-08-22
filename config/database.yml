@@ -7,7 +7,7 @@ default: &default
   
 production:
   <<: *default
-  database: farm_link_production
+  database: food_crate_production
   username: postgres
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host:  "/cloudsql/farm-link-284523:us-central1:farm-link-db"

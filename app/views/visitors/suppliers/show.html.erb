@@ -1,0 +1,32 @@
+<div class="container-md header-space">
+  <div class="row">
+    <div class="col-md-12">
+      <h1><%= link_to 'Suppliers', suppliers_list_path %></h1>
+      <%= link_to 'Add Food', new_supplier_food_path %>
+    </div>
+  </div>
+  <div class="row resource-space">
+    <div class="col-md-12">
+      <h2><%= @supplier.name %></h2>
+      <ul>
+        <li>State :: <%= @supplier.state %></li>
+        <li>Country :: <%= @supplier.country %></li>
+        <li>Address :: <%= @supplier.address %></li>
+        <li>Phone :: <%= @supplier.phone %></li>
+        <li>Need Level :: <%= @supplier.supplier_type %></li>
+      </ul>
+    </div>
+  </div>
+  <h3>Foods</h3>
+  <% @supplier.foods.each do |food| %>
+    <div class="row resource-space">
+      <div class="col-md-12">
+        <h4><%= food.name %></h4>
+        <ul>
+          <li><%= "Amount (#{food.unit_type})" %> :: <%= food.amount %></li>
+          <li>Expiration :: <%= food.expiration.to_formatted_s(:long_ordinal) %></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>

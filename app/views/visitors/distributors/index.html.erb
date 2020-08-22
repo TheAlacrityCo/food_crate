@@ -1,0 +1,28 @@
+<div class="container-md header-space">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Distributors</h1>
+      <%= link_to 'Add a Distributor', new_distributor_path %>
+    </div>
+  </div>
+  <div class="distributors">
+    <% @distributors.each do |distributor| %>
+    <div class="row resource-space">
+      <div class="col-md-4">
+        <h2><%= link_to distributor.name, distributor_show_path(distributor) %></h2>
+        <ul>
+          <li>State :: <%= distributor.state %></li>
+          <li>Country :: <%= distributor.country %></li>
+          <li>Address :: <%= distributor.address %></li>
+          <li>Phone :: <%= distributor.phone %></li>
+          <li>Need Level :: <%= distributor.need_level %></li>
+          <li>Capacity :: <%= distributor.capacity %></li>
+          <li>Type :: <%= distributor.distributor_type %></li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
