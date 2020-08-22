@@ -4,6 +4,6 @@ class Visitors::DistributorsController < ApplicationController
   end
 
   def show
-    @distributor = Distributor.find(params[:distributor_id])
+    @distributor = Distributor.find(params[:distributors_id])
   end
 end
