@@ -7,7 +7,7 @@
   </div>
   <div class="distributors">
     <% @distributors.each do |distributor| %>
-    <div class="row resource-space">
+    <div class="row resource-space" id="distributor-id-<%= distributor.id %>">
       <div class="col-md-4">
         <h2><%= link_to distributor.name, distributor_show_path(distributor) %></h2>
         <ul>
@@ -17,7 +17,7 @@
           <li>Phone :: <%= distributor.phone %></li>
           <li>Need Level :: <%= distributor.need_level %></li>
           <li>Capacity :: <%= distributor.capacity %></li>
-          <li>Type :: <%= distributor.distributor_type %></li>
+          <li>Distributor Type :: <%= distributor.type_display %></li>
         </ul>
       </div>
       <div class="col-md-8">
