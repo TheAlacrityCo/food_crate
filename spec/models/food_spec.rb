@@ -9,6 +9,6 @@ RSpec.describe Food, type: :model do
   end
 
   describe 'relationships' do
-    it { should belong_to :farm }
+    it { should belong_to :supplier }
   end
 end
