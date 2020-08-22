@@ -4,5 +4,5 @@ class Food < ApplicationRecord
   validates :unit_type, presence: true
   validates :expiration, presence: true
 
-  belongs_to :farm
+  belongs_to :supplier
 end
