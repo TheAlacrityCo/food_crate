@@ -19,3 +19,7 @@
 .radio-button-pad {
   padding-left: .5em;
 }
+
+.select-menu {
+  transform: scale(1.25);
+}
