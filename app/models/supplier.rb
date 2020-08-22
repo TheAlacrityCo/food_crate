@@ -16,4 +16,16 @@ class Supplier < ApplicationRecord
 
   has_many :foods
   belongs_to :user
+
+  def type_display
+    display = {
+      'farm' => 'Farm',
+      'grocery_store' => 'Grocery Store',
+      'restaurant' => 'Restaurant',
+      'produce_distributor' => 'Produce Distributor',
+      'other' => 'Other'
+    }
+
+    display[supplier_type]
+  end
 end
