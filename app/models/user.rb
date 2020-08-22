@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :encrypted_password, presence: true
 
-  has_many :farms
-  has_many :food_banks
+  has_many :suppliers
+  has_many :distributors
   has_many :logistics_companies
 end

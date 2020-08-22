@@ -10,36 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_15_060201) do
+ActiveRecord::Schema.define(version: 2020_08_21_222213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "farms", force: :cascade do |t|
+  create_table "distributors", force: :cascade do |t|
     t.string "name"
     t.string "state"
     t.string "country"
     t.string "address"
     t.string "phone"
     t.integer "need_level"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_farms_on_user_id"
-  end
-
-  create_table "food_banks", force: :cascade do |t|
-    t.string "name"
-    t.string "state"
-    t.string "country"
-    t.string "address"
-    t.string "phone"
-    t.integer "need_level"
+    t.integer "distributor_type"
     t.integer "capacity"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_food_banks_on_user_id"
+    t.index ["user_id"], name: "index_distributors_on_user_id"
   end
 
   create_table "foods", force: :cascade do |t|
@@ -47,8 +35,8 @@ ActiveRecord::Schema.define(version: 2020_08_15_060201) do
     t.integer "amount"
     t.string "unit_type"
     t.datetime "expiration"
-    t.bigint "farm_id", null: false
-    t.index ["farm_id"], name: "index_foods_on_farm_id"
+    t.bigint "supplier_id", null: false
+    t.index ["supplier_id"], name: "index_foods_on_supplier_id"
   end
 
   create_table "logistics_companies", force: :cascade do |t|
@@ -58,10 +46,23 @@ ActiveRecord::Schema.define(version: 2020_08_15_060201) do
     t.string "address"
     t.string "phone"
     t.integer "max_load"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
     t.index ["user_id"], name: "index_logistics_companies_on_user_id"
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name"
+    t.string "state"
+    t.string "country"
+    t.string "address"
+    t.string "phone"
+    t.integer "supplier_type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_suppliers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,8 +77,8 @@ ActiveRecord::Schema.define(version: 2020_08_15_060201) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "farms", "users"
-  add_foreign_key "food_banks", "users"
-  add_foreign_key "foods", "farms"
+  add_foreign_key "distributors", "users"
+  add_foreign_key "foods", "suppliers"
   add_foreign_key "logistics_companies", "users"
+  add_foreign_key "suppliers", "users"
 end

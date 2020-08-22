@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap" rel="stylesheet">
+    <%= favicon_link_tag asset_path('food_crate_favicon.png') %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,17 +16,17 @@
     <%# Nav Bar %>
     <header id="headerSpace">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <%= link_to 'Food Link', root_path, class: 'navbar-brand' %>
+        <%= link_to 'Food Crate', root_path, class: 'navbar-brand' %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <%= link_to 'Farms', farms_list_path, class: 'nav-link' %>
+              <%= link_to 'Suppliers', suppliers_list_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Food Banks', food_banks_list_path, class: 'nav-link' %>
+              <%= link_to 'Distributors', distributors_list_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
               <%= link_to 'Logistics', logistics_list_path, class: 'nav-link' %>
