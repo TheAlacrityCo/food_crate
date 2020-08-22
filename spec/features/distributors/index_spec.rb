@@ -17,7 +17,7 @@ RSpec.describe 'Food Banks Index' do
       expect(page).to have_content(@distributor.phone)
       expect(page).to have_content(@distributor.need_level)
       expect(page).to have_content(@distributor.capacity)
-      expect(page).to have_content(@distributor.distributor_type)
+      expect(page).to have_content(@distributor.type_display)
     end
   end
 end

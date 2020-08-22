@@ -14,4 +14,14 @@ RSpec.describe Supplier, type: :model do
     it { should have_many :foods }
     it { should belong_to :user }
   end
+
+  describe 'class instance methods' do
+    before :each do
+      @supplier = create(:supplier, supplier_type: :grocery_store)
+    end
+
+    it 'type_display' do
+      expect(@supplier.type_display).to eq('Grocery Store')
+    end
+  end
 end
