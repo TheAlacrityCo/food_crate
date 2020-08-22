@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Create a Farm' do
+RSpec.describe 'Create a Supplier' do
   before :each do
     @user = create(:user)
     sign_in @user
@@ -36,7 +36,7 @@ RSpec.describe 'Create a Farm' do
     expect(page).to have_content(supplier.state)
     expect(page).to have_content(supplier.address)
     expect(page).to have_content(supplier.phone)
-    expect(page).to have_content(supplier.supplier_type)
+    expect(page).to have_content(supplier.type_display)
   end
 
   it 'can gracefully handle unsuccessful creation' do

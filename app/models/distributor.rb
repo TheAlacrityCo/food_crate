@@ -24,4 +24,17 @@ class Distributor < ApplicationRecord
   ]
 
   belongs_to :user
+
+  def type_display
+    display = {
+      'food_bank' => 'Food Bank',
+      'community_center' => 'Community Center',
+      'school' => 'School',
+      'food_delivery' => 'Food Delivery',
+      'religious_center' => 'Religious Center',
+      'other' => 'Other'
+    }
+
+    display[distributor_type]
+  end
 end

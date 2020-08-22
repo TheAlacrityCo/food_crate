@@ -23,7 +23,7 @@ RSpec.describe 'Create a Food' do
     expect(page).to have_content(@supplier.country)
     expect(page).to have_content(@supplier.phone)
     expect(page).to have_content(@supplier.address)
-    expect(page).to have_content(@supplier.supplier_type)
+    expect(page).to have_content(@supplier.type_display)
     expect(page).to have_link('Add Food')
 
     click_on 'Add Food'
@@ -44,7 +44,7 @@ RSpec.describe 'Create a Food' do
     expect(page).to have_content('Peaches')
     expect(page).to have_content(food.amount)
     expect(page).to have_content(food.unit_type)
-    expect(page).to have_content(food.expiration.to_formatted_s(:long_ordinal))
+    expect(page).to have_content(food.display)
   end
 
   it 'can gracefully handle unsuccessful creation' do
@@ -62,7 +62,7 @@ RSpec.describe 'Create a Food' do
     expect(page).to have_content(@supplier.country)
     expect(page).to have_content(@supplier.phone)
     expect(page).to have_content(@supplier.address)
-    expect(page).to have_content(@supplier.supplier_type)
+    expect(page).to have_content(@supplier.type_display)
     expect(page).to have_link('Add Food')
 
     click_on 'Add Food'

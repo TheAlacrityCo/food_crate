@@ -15,4 +15,14 @@ RSpec.describe Distributor, type: :model do
   describe 'relationships' do
     it { should belong_to :user }
   end
+
+  describe 'class instance methods' do
+    before :each do
+      @distributor = create(:distributor, distributor_type: :community_center)
+    end
+
+    it 'type_display' do
+      expect(@distributor.type_display).to eq('Community Center')
+    end
+  end
 end

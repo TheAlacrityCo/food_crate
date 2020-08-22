@@ -31,11 +31,21 @@ RSpec.describe 'Create a Logistics Company' do
     expect(current_path).to eq('/logistics')
 
     logistics_company = LogisticsCompany.last
+    expect(page).to have_link(logistics_company.name)
+    expect(page).to have_content(logistics_company.country)
+    expect(page).to have_content(logistics_company.state)
+    expect(page).to have_content(logistics_company.address)
+    expect(page).to have_content(logistics_company.phone)
+
+    click_on logistics_company.name
+
+    expect(current_path).to eq(logistics_show_path(logistics_company))
     expect(page).to have_content(logistics_company.name)
     expect(page).to have_content(logistics_company.country)
     expect(page).to have_content(logistics_company.state)
     expect(page).to have_content(logistics_company.address)
     expect(page).to have_content(logistics_company.phone)
+    expect(page).to have_link("Logistics Companies")
   end
 
   it 'can gracefully handle unsuccessful creation' do
