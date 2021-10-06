@@ -18,7 +18,7 @@ gem 'puma', '~> 4.3', '>= 4.3.5'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'redis', '~> 4.2', '>= 4.2.1'
 gem 'sass-rails', '>= 6'
-gem 'sidekiq', '~> 6.1', '>= 6.1.1'
+gem 'sidekiq', '~> 6.2'
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 gem 'webpacker', '~> 5.1', '>= 5.1.1'
 
